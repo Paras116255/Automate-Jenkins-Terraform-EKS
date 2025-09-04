@@ -1,22 +1,22 @@
 module "vpc" {
-    source = "terraform-aws-modules/vpc/aws"
-    version = "~> 4.0"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~> 4.0"
 
-    name = local.name
-    cidr = local.vpc_cidr
-    azs = local.azs
-    public_subnets = local.public_subnets
-    private_subnets = local.private_subnets
-    intra_subnets = local.intra_subnets
+  name = local.name
+  cidr = local.vpc_cidr
 
-    enable_nat_gateway = true
+  azs             = local.azs
+  private_subnets = local.private_subnets
+  public_subnets  = local.public_subnets
+  intra_subnets   = local.intra_subnets
 
-    public_subnet_tags = {
-        "kubernetes.io/role/elb" = 1
-    }
+  enable_nat_gateway = true
 
-    private_subnet_tags = {
-        "kubernetes.io/role/internal-elb" = 1
-    }
+  public_subnet_tags = {
+    "kubernetes.io/role/elb" = 1
+  }
 
+  private_subnet_tags = {
+    "kubernetes.io/role/internal-elb" = 1
+  }
 }
